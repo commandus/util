@@ -1,0 +1,9 @@
+http://localhost
+http://www.borland.com
+http://www.yahoo.com
+http://www.altavista.com
+http://www.euromind.com/Netscape
+http://www.cnn.com
+http://www.corel.com
+http://www.macromedia.com
+http://www.netscape.com

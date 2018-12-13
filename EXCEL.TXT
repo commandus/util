@@ -1,0 +1,283 @@
+====================
+TExcel component 3.3
+====================
+TExcel is a component to produce output tables directly into
+MS Excel, including formatting, commands, macro calls, etc.
+
+Demo project is attached to show how easy to drive it.
+The demo project creates the component explicitly so it can be
+tried without installing the component.
+
+
+Files:
+       EXCELS.PAS      Component source
+       EXCELS.INC      Include messages
+       EXCELS.DCR      Component resource for Delphi 1.0
+       EXCELS.D32      Component resource for Delphi 3.0 (rename to DCR)
+       EXCELDEM.DPR    Demo project
+       EXCELDEM.RES    Demo project resource
+       EXCELTOP.PAS    Demo dialog
+       EXCELTOP.DFM    Demo dialog format
+       EXCEL.XLS       Demo Excel macro collection
+       EXCEL.TXT       This file
+
+===================
+New features in 3.3
+===================
+The Excel timing problems in 32 bit mode have been solved.
+The LocateExcel method now handles long file names in 16 bit mode too.
+GetBooks and GetSheets new methods (see demo).
+ExecLimit new property to calibrate Excel timing (see About Execute...).
+
+===================
+About Batch Feature
+===================
+When huge amount of data must be transferred to Excel you can use
+the batch methods and properties. These are the following:
+
+    procedure BatchStart(FirstRow, FirstCol: Integer);
+    procedure BatchSend;
+    procedure BatchCancel;
+    property Lines    : TStrings;
+    property BatchOn  : Boolean;
+    property BatchMin : Integer;
+    property BatchMax : Integer;
+    property FirstRow : Integer;
+    property FirstCol : Integer;
+    property LastCol  : Integer;
+
+Each BatchStart must be followed by BatchSend or BatchCancel.
+After BatchStart the results of PutStr, PutExt, PutInt and
+PutDay methods are collected in Lines (TStringList).
+When the Lines.Count reaches BatchMax the first BatchMin
+lines are transferred to Excel and deleted from Lines,
+besides this FirstRow is increased.
+It is recommended to process output by rows.
+
+BatchSend transfers all cells collected in Lines and calls
+BatchCancel which clears Lines.
+
+WARNING!   In Excel the whole bounding rectangle (batch area) 
+           of the referred cells will be replaced.
+All not referred cells in the rectangle will be cleared.
+
+FirstRow always shows which Excel row is the first in Lines.
+FirstCol always shows which Excel column is the first in Lines.
+LastCols shows the greatest cell index in the processed lines.
+
+BachOn shows the batch status. When BatchOn is false or you
+refer a row less then FirstRow or column less then FirstCol
+the put methods (PutStr, PutExt, PutInt and PutDay) are
+directly executed.
+
+Transfer speed can be increased if Lines are prepared.
+The cells must be separated by tab (#9) in each line (see demo).
+
+Further speed increasing can be achieved
+if Excel is restored instead of minimized.
+
+RESTRICTIONS! The Excel DDE buffer cannot be larger then 64 KB.
+              For Delphi 1.0 the length of lines cannot be
+              longer then 255 character including separators.
+              (See buffer checking in demo.)
+
+======================
+About Execute Commands
+======================
+Each Exec call sends the command to Excel. (If not in Batch mode
+the PutStr, PutExt, PutInt and PutDay methods are also calling Exec.)
+When the commands are sent quicker then Excel is able to process 
+them a slow down happens. Therefore after ExecLimit number of Exec
+calls a time checking is performed. If they all happened in the 
+last two seconds TExec waits for Excel to be ready.
+The default value of ExecLimit is 99. 
+The proper value depends on the system resource capacity. 
+The larger system capacity allows the bigger ExecLimit value.
+
+===============================
+About Receiving Data from Excel
+===============================
+Though TExcel is to produce output to Excel sometimes input is
+also needed. GetCell retrieves the contents of the specified cell.
+When many cells needed it is recommended to use the GetRange method.
+GetRange returns the specified area of the current Excel worksheet
+in the stringlist given as Lines. Each cell is separated by tab (#9).
+RESTRICTIONS are the same as case of batch (see About Batch ...)!
+WARNING! When Batch is on, cells in the batch area are NOT AVAILABLE!
+
+==================
+Excel DDE commands
+==================
+To tell the truth I have never seen documentation of Excel DDE
+commands but I have found that most of Excel 4.0 macro instructions
+work as DDE commands. So all you have to do make a macro using the
+desired instruction in Excel 4.0 format and use it as DDE command.
+(With Excel 5.0 and 7.0  you can record macro in 4.0 format.)
+The demo project shows some samples in the "Command" combo box.
+
+
+=================================================================
+Instead of documentation here are some words about the interface.
+=================================================================
+
+procedure Connect;
+  To connect Excel.
+
+procedure Disconnect;
+  To disconnect Excel.
+
+procedure Wait;
+  To wait for Excel to be ready. Normally not needed since 
+  it is controlled by ExecLimit (see About Execute ...).
+
+procedure ProcessMessages;
+  To permit Windows to process messages.
+
+function Request(const Item: string): string;
+  To request for a DDE item.
+  Use "SysItems" to get the available items.
+
+procedure Exec(const Cmd : string);
+  To execute Excel commands. See section "Excel DDE Commands".
+
+procedure Run(const Mn: string);
+  To execute a macro of the open macro file.
+
+procedure Select(Row, Col: Integer);
+  To select a cell of the active Excel worksheet.
+
+procedure PutStr(Row, Col: Integer; const s: string);
+  To replace the cell with string.
+
+procedure PutExt(Row, Col: Integer; e: Extended); virtual;
+  To replace the cell with real number.
+
+procedure PutInt(Row, Col: Integer; i: Longint); virtual;
+  To replace the cell with integer.
+
+procedure PutDay(Row, Col: Integer; d: TDateTime); virtual;
+  To replace the cell with date value.
+
+procedure BatchStart;
+  To start processing. See section "About Batch...".
+
+procedure BatchCancel;
+  To cancel batch processing. See section "About Batch...".
+
+procedure BatchSend;
+  To finish batch processing. See section "About Batch...".
+
+procedure GetBooks(Books: TStrings);
+  To get the names of the workbooks of Excel.
+
+procedure GetSheets(const Book: string; Sheets: TStrings);
+  To get the names of the worksheets of specified workbook.
+
+procedure GetRange(R: TRect; Lines: TStrings);
+  To receive many data from Excel. See section "About Receive...".
+
+function GetCell(Row, Col: Integer): string;
+  To get the contents of the cell. See section "About Receive...".
+
+procedure OpenMacroFile(const Fn: string; Hide: Boolean);
+  To specify a macro file.
+  Needed only when macros are going to call.
+
+procedure CloseMacroFile;
+   To close an opened macro file.
+   Only one macro file can be opened at the same time.
+
+property DDE: TDdeCLientConv;
+  To handle DDE directly.  (Read only)
+  Normally not needed.
+
+property Connected: Boolean;
+  To check connection.
+
+property Ready: Boolean;
+  To check Excel status. (Read only)
+
+property Selection: string;
+  To get current selection. (Read only)
+
+property Lines : TStrings;
+  To handle batch strings directly. See section "About Batch...".
+
+property FirstRow : Integer;
+  To check batch area. (Read only) See section "About Batch...".
+
+property FirstCol : Integer;
+  To check batch area. (Read only) See section "About Batch...".
+
+property LastCol  : Integer;
+  To check or set batch area. See section "About Batch...".
+
+property BatchOn  : Boolean;
+  To check batch status. (Read only) See section "About Batch...".
+
+property ExeName: string;
+  To set Excel path. If it is not set before connection
+  it will be set due to Windows Registry.
+
+property ExecLimit: Integer;
+  To calibrate processing by execute. See section "About Execute...".
+
+property Decimals: Integer;
+  To specify number format for real numbers.
+
+property BatchMin : Integer;
+  To calibrate batch processing. See section "About Batch...".
+
+property BatchMax : Integer;
+  To calibrate batch processing. See section "About Batch...".
+
+property OnClose: TNotifyEvent;
+  Event handler called when Excel is connected.
+
+property OnOpen: TNotifyEvent;
+  Event handler called when Excel is disconnected.
+
+--------------------------------------
+
+TExcel is available at the following sites:
+(Thanks to Stefan Hoffmeister the sophisticated
+version named TAdvExcel is also available there.)
+
+Delphi Super Page
+			http://sunsite.icm.edu.pl/delphi/
+			http://www.cdrom.com/pub/delphi_www/
+			http://sunsite.cnlab-switch.ch/www/mirror/delphi/
+			http://SunSite.Informatik.RWTH-Aachen.DE/delphi/
+			http://nswt.tuwien.ac.at/delphi/
+			http://ftp.powerup.com.au/webmirror/delphi/
+			http://ftp.is.co.za/dsp/
+			http://bbs.stts.ac.id/public/delphi/default.htm
+			http://ring.asahi-net.or.jp/archives/pc/delphi/
+			http://dsp.static.co.kr/
+Torry's Delphi Pages
+			http://www.torry.ru
+			http://torry.rimini.com/
+			http://www.snc.ru/~torry/
+			http://www.torry.webnorth.com
+			http://torry.magnitka.ru/
+			http://192.114.11.115/torry/
+			http://torry.copystar.com.tw/
+
+--------------------------------------
+--------------------------------------
+
+TExcel is provided free of charge as so long as
+it is not in commercial use. When it produces
+income for you, please send me some portion of
+your income (at least $50).      Thank you.
+
+--------------------------------------
+--------------------------------------
+
+Tibor F. Liska     MTA SZTAKI
+                   Lágymányosi utca 11
+                   1111 Budapest
+                   Hungary
+Fax:    +36-1-209-5288
+Tel:    +36-1-209-5284
+E-mail: liska@sztaki.hu

@@ -1,0 +1,67 @@
+#------------------------------------------------------------------------------
+VERSION = BWS.01
+#------------------------------------------------------------------------------
+!ifndef ROOT
+ROOT = $(MAKEDIR)\..
+!endif
+#------------------------------------------------------------------------------
+MAKE = $(ROOT)\bin\make.exe -$(MAKEFLAGS) -f$**
+DCC = $(ROOT)\bin\dcc32.exe $**
+BRCC = $(ROOT)\bin\brcc32.exe $**
+#------------------------------------------------------------------------------
+PROJECTS = gifexplore.exe animate.exe counter.dll gif2bmp.exe bmp2gif.exe \
+  resource.exe ThreadPaint.exe convert.exe reduce.exe gifcombo.exe comments.exe \
+  avi2gif.exe gif2avi.exe button.exe Quantize.exe optimizer.exe
+#------------------------------------------------------------------------------
+default: $(PROJECTS)
+#------------------------------------------------------------------------------
+
+animate.exe: animate\animate.dpr
+  $(DCC)
+
+counter.dll: cgi-counter\counter.dpr
+  $(DCC)
+
+gifexplore.exe: explorer\gifexplore.dpr
+  $(DCC)
+
+gif2bmp.exe: gif2bmp\gif2bmp.dpr
+  $(DCC)
+
+bmp2gif.exe: bmp2gif\bmp2gif.dpr
+  $(DCC)
+
+resource.exe: resource\resource.dpr
+  $(DCC)
+
+ThreadPaint.exe: thread\ThreadPaint.dpr
+  $(DCC)
+
+convert.exe: convert\convert.dpr
+  $(DCC)
+
+reduce.exe: reduce\reduce.dpr
+  $(DCC)
+
+gifcombo.exe: combo\gifcombo.dpr
+  $(DCC)
+
+comments.exe: comment\comments.dpr
+  $(DCC)
+
+avi2gif.exe: avi2gif\avi2gif.dpr
+  $(DCC)
+
+button.exe: button\button.dpr
+  $(DCC)
+
+gif2avi.exe: gif2avi\gif2avi.dpr
+  $(DCC)
+
+Quantize.exe: Quantize\Quantize.dpr
+  $(DCC)
+
+optimizer.exe: Optimizer\optimizer.dpr
+  $(DCC)
+
+

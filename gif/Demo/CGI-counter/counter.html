@@ -1,0 +1,63 @@
+<HTML>
+  <HEAD>
+    <TITLE>TGIFImage Demo CGI Counter</TITLE>
+  </HEAD>
+
+  <BODY TEXT="#000000" BGCOLOR="#FFFFFF" NOSAVE>
+
+<TABLE BORDER=0 CELLSPACING=0 CELLPADDING=0 WIDTH="100%" BGCOLOR="#A0A0A0">
+  <TR>
+    <TD ALIGN=CENTER><FONT FACE="Arial,Helvetica" COLOR="#FFFFFF" SIZE=+1>TGIFImage Demo CGI Counter</FONT></TD>
+  </TR>
+</TABLE>
+<P>
+<TABLE BORDER=1 CELLSPACING=2 CELLPADDING=4 WIDTH="100%">
+  <TR BGCOLOR="#CCCCCC">
+    <TD ALIGN=CENTER><FONT FACE="Arial,Helvetica" COLOR="#333333" SIZE=-1>Active Counter</FONT></TD>
+    <TD ALIGN=CENTER><FONT FACE="Arial,Helvetica" COLOR="#333333" SIZE=-1>Passive Counter</FONT></TD>    <TD ALIGN=CENTER><FONT FACE="Arial,Helvetica" COLOR="#333333" SIZE=-1>Global Counter</FONT></TD>
+    <TD ALIGN=CENTER><FONT FACE="Arial,Helvetica" COLOR="#333333" SIZE=-1>Invalid referer</FONT></TD>
+  </TR>
+  <TR>
+    <TD ALIGN=CENTER><IMG SRC="/cgi-bin/counter.dll/test" ALT="Active" BORDER=0 HEIGHT=45 WIDTH=115></TD>
+    <TD ALIGN=CENTER><IMG SRC="/cgi-bin/counter.dll/test?passive=true" ALT="Passive" BORDER=0 HEIGHT=45 WIDTH=115></TD>
+    <TD ALIGN=CENTER><IMG SRC="/cgi-bin/counter.dll" ALT="Global" BORDER=0 HEIGHT=23 WIDTH=74></TD>
+    <TD ALIGN=CENTER><A HREF="/cgi-bin/counter.dll/invalid"><IMG SRC="/cgi-bin/counter.dll/invalid" ALT="Invalid"BORDER=0 HEIGHT=23 WIDTH=74></A></TD>
+  </TR>
+  <TR>
+    <TD ALIGN=CENTER><FONT FACE="Arial,Helvetica" SIZE=-1>An "Active Counter"
+    records each request of it by incrementing the counter value.</FONT></TD>
+    <TD ALIGN=CENTER><FONT FACE="Arial,Helvetica" SIZE=-1>A "Passive Counter"
+    only displays the current value of the counter, without incrementing it.</FONT></TD>
+    <TD ALIGN=CENTER><FONT FACE="Arial,Helvetica" SIZE=-1>The "Global Counter"
+    records the sum of all requests on all counters. Every time an individual
+    counter is incremented, the global counter is incremented as well.</FONT></TD>
+    <TD ALIGN=CENTER><FONT FACE="Arial,Helvetica" SIZE=-1>An "Invalid referer"
+    is a request from a <B>host</B> that have not been allowed to use the
+    CGI counter.<BR>
+    Click the image to see what it looks like...</FONT></TD>
+  </TR>
+  <TR><TD COLSPAN=4><FONT FACE="Arial,Helvetica" SIZE=-1>
+    To avoid the counters being incremented when a client reloads a page, the IP
+    address of clients and the time of their last request is cached by the
+    CGI counter.<BR>
+    By default the CGI counter caches up to 32 clients for a period of 60 seconds.
+  </FONT></TD></TR>
+</TABLE>
+
+<P>The CGI application that produced the above counter images was created with
+the Delphi 3 CGI components and TGIFImage. The full source is included in
+the TGIFImage kit.
+
+<P>The CGI Counter has been tested with Netscape FastTrack 2.0 on Windows 95 and
+Microsoft IIS on Windows NT 4.0.
+
+<P>
+<CENTER>
+  <HR noshade>
+  <FONT SIZE=-1>
+    Copyright &copy; 1998 <A HREF="mailto:anders@melander.dk">Anders Melander</A>. All rights reserved.
+  </FONT>
+</CENTER>
+
+</BODY>
+</HTML>

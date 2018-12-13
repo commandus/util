@@ -1,0 +1,1779 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<namespace name="Util1">
+  <type name="FNameStr" type="AnsiString" />
+  <type name="DirStr" type="AnsiString" />
+  <type name="NameStr" type="AnsiString" />
+  <type name="ExtStr" type="AnsiString" />
+  <type name="PathStr" type="AnsiString" />
+  <const name="DBdlg_ShowAlias" type="Integer">
+    <value>
+      $1
+    </value>
+  </const>
+  <const name="DBdlg_ShowTable" type="Integer">
+    <value>
+      $2
+    </value>
+  </const>
+  <const name="DBdlg_CheckIntegrity" type="Integer">
+    <value>
+      $3
+    </value>
+  </const>
+  <set name="TBS" type="Byte" />
+  <array name="CA" low="0" high="40000">
+    <element type="Char" />
+  </array>
+  <array name="BA" low="0" high="40000">
+    <element type="Byte" />
+  </array>
+  <array name="WA" low="0" high="20000">
+    <element type="Word" />
+  </array>
+  <array name="IA" low="0" high="20000">
+    <element type="Smallint" />
+  </array>
+  <array name="LA" low="0" high="10000">
+    <element type="Integer" />
+  </array>
+  <set name="TCS" type="Char" />
+  <array name="CA3" low="0" high="2">
+    <element type="Char" />
+  </array>
+  <array name="CA4" low="0" high="3">
+    <element type="Char" />
+  </array>
+  <array name="CA5" low="0" high="4">
+    <element type="Char" />
+  </array>
+  <class name="TFixStrings">
+    <ancestor name="TObject" namespace="System">
+      <methodref name="Create" visibility="public">
+      </methodref>
+      <methodref name="Free" visibility="public">
+      </methodref>
+      <methodref name="InitInstance" visibility="public">
+      </methodref>
+      <methodref name="CleanupInstance" visibility="public">
+      </methodref>
+      <methodref name="ClassType" visibility="public">
+      </methodref>
+      <methodref name="ClassName" visibility="public">
+      </methodref>
+      <methodref name="ClassNameIs" visibility="public">
+      </methodref>
+      <methodref name="ClassParent" visibility="public">
+      </methodref>
+      <methodref name="ClassInfo" visibility="public">
+      </methodref>
+      <methodref name="InstanceSize" visibility="public">
+      </methodref>
+      <methodref name="InheritsFrom" visibility="public">
+      </methodref>
+      <methodref name="MethodAddress" visibility="public">
+      </methodref>
+      <methodref name="MethodName" visibility="public">
+      </methodref>
+      <methodref name="FieldAddress" visibility="public">
+      </methodref>
+      <methodref name="GetInterface" visibility="public">
+      </methodref>
+      <methodref name="GetInterfaceEntry" visibility="public">
+      </methodref>
+      <methodref name="GetInterfaceTable" visibility="public">
+      </methodref>
+      <methodref name="SafeCallException" visibility="public">
+      </methodref>
+      <methodref name="AfterConstruction" visibility="public">
+      </methodref>
+      <methodref name="BeforeDestruction" visibility="public">
+      </methodref>
+      <methodref name="Dispatch" visibility="public">
+      </methodref>
+      <methodref name="DefaultHandler" visibility="public">
+      </methodref>
+      <methodref name="NewInstance" visibility="public">
+      </methodref>
+      <methodref name="FreeInstance" visibility="public">
+      </methodref>
+      <methodref name="Destroy" visibility="public">
+      </methodref>
+    </ancestor>
+    <members>
+      <field name="StrBuf" type="Pointer" visibility="private" />
+      <field name="BufLen" type="Integer" visibility="private" />
+      <field name="LinesQTY" type="Integer" visibility="private" />
+      <field name="StrOfLen" type="Integer" visibility="private" />
+      <function name="Get" visibility="private" procflags="virtual">
+        <parameters>
+          <parameter name="Index" type="Smallint" />
+          <retval type="ShortString" />
+        </parameters>
+      </function>
+      <function name="GetValuable" visibility="private" procflags="virtual">
+        <parameters>
+          <parameter name="Index" type="Smallint" />
+          <retval type="ShortString" />
+        </parameters>
+      </function>
+      <procedure name="Put" visibility="private" procflags="virtual">
+        <parameters>
+          <parameter name="Index" type="Smallint" />
+          <parameter name="S" type="ShortString" paramflags="var" />
+        </parameters>
+      </procedure>
+      <field name="Exists" type="TBS" visibility="public" />
+      <field name="FilledLines" type="Smallint" visibility="public" />
+      <field name="NameOfList" visibility="public">
+        <type name="NameOfList" type="ShortString" />
+      </field>
+      <function name="Adresses" visibility="public">
+        <parameters>
+          <parameter name="Index" type="Smallint" />
+          <retval type="Pointer" />
+        </parameters>
+      </function>
+      <property name="Strings" visibility="public" read="Get" write="Put" type="ShortString" />
+      <property name="Valuables" visibility="public" read="GetValuable" type="ShortString" />
+      <constructor name="Create" visibility="public">
+        <parameters>
+          <parameter name="ALines" type="Word" />
+          <parameter name="ALen" type="Word" />
+        </parameters>
+      </constructor>
+      <destructor name="Destroy" visibility="public">
+        <parameters>
+        </parameters>
+      </destructor>
+      <function name="ValuableIndex" visibility="public">
+        <parameters>
+          <parameter name="Index" type="Smallint" />
+          <retval type="Smallint" />
+        </parameters>
+      </function>
+      <procedure name="Clear" visibility="public">
+      </procedure>
+      <procedure name="EraseString" visibility="public">
+        <parameters>
+          <parameter name="Index" type="Word" />
+        </parameters>
+      </procedure>
+      <procedure name="MarkNotExist" visibility="public">
+        <parameters>
+          <parameter name="Index" type="Word" />
+        </parameters>
+      </procedure>
+    </members>
+  </class>
+  <class name="TDelimitedStrings">
+    <ancestor name="TPersistent" namespace="Classes">
+      <methodref name="AssignError" visibility="private">
+      </methodref>
+      <methodref name="AssignTo" visibility="protected">
+      </methodref>
+      <methodref name="DefineProperties" visibility="protected">
+      </methodref>
+      <methodref name="GetOwner" visibility="protected">
+      </methodref>
+      <methodref name="Destroy" visibility="public">
+      </methodref>
+      <methodref name="Assign" visibility="public">
+      </methodref>
+      <methodref name="GetNamePath" visibility="public">
+      </methodref>
+      <ancestor name="TObject" namespace="System">
+        <methodref name="Create" visibility="public">
+        </methodref>
+        <methodref name="Free" visibility="public">
+        </methodref>
+        <methodref name="InitInstance" visibility="public">
+        </methodref>
+        <methodref name="CleanupInstance" visibility="public">
+        </methodref>
+        <methodref name="ClassType" visibility="public">
+        </methodref>
+        <methodref name="ClassName" visibility="public">
+        </methodref>
+        <methodref name="ClassNameIs" visibility="public">
+        </methodref>
+        <methodref name="ClassParent" visibility="public">
+        </methodref>
+        <methodref name="ClassInfo" visibility="public">
+        </methodref>
+        <methodref name="InstanceSize" visibility="public">
+        </methodref>
+        <methodref name="InheritsFrom" visibility="public">
+        </methodref>
+        <methodref name="MethodAddress" visibility="public">
+        </methodref>
+        <methodref name="MethodName" visibility="public">
+        </methodref>
+        <methodref name="FieldAddress" visibility="public">
+        </methodref>
+        <methodref name="GetInterface" visibility="public">
+        </methodref>
+        <methodref name="GetInterfaceEntry" visibility="public">
+        </methodref>
+        <methodref name="GetInterfaceTable" visibility="public">
+        </methodref>
+        <methodref name="SafeCallException" visibility="public">
+        </methodref>
+        <methodref name="AfterConstruction" visibility="public">
+        </methodref>
+        <methodref name="BeforeDestruction" visibility="public">
+        </methodref>
+        <methodref name="Dispatch" visibility="public">
+        </methodref>
+        <methodref name="DefaultHandler" visibility="public">
+        </methodref>
+        <methodref name="NewInstance" visibility="public">
+        </methodref>
+        <methodref name="FreeInstance" visibility="public">
+        </methodref>
+        <methodref name="Destroy" visibility="public">
+        </methodref>
+      </ancestor>
+    </ancestor>
+    <members>
+      <field name="FInfos" type="TStringList" visibility="private" />
+      <procedure name="SetInfo" visibility="private">
+        <parameters>
+          <parameter name="AHsocket" type="Integer" />
+          <parameter name="no" type="Integer" />
+          <parameter name="AInfo" type="string" />
+        </parameters>
+      </procedure>
+      <function name="GetInfo" visibility="private">
+        <parameters>
+          <parameter name="AHsocket" type="Integer" />
+          <parameter name="no" type="Integer" />
+          <retval type="string" />
+        </parameters>
+      </function>
+      <function name="GetIndex" visibility="private">
+        <parameters>
+          <parameter name="AHsocket" type="Integer" />
+          <retval type="Integer" />
+        </parameters>
+      </function>
+      <constructor name="Create" visibility="public">
+        <parameters>
+        </parameters>
+      </constructor>
+      <destructor name="Destroy" visibility="public">
+        <parameters>
+        </parameters>
+      </destructor>
+      <procedure name="Add" visibility="public">
+        <parameters>
+          <parameter name="AHsocket" type="Integer" />
+        </parameters>
+      </procedure>
+      <procedure name="Delete" visibility="public">
+        <parameters>
+          <parameter name="AHsocket" type="Integer" />
+        </parameters>
+      </procedure>
+      <property name="Info" visibility="public" read="GetInfo" write="SetInfo" type="string" />
+    </members>
+  </class>
+  <class name="TNumberedTextFile">
+    <ancestor name="TObject" namespace="System">
+      <methodref name="Create" visibility="public">
+      </methodref>
+      <methodref name="Free" visibility="public">
+      </methodref>
+      <methodref name="InitInstance" visibility="public">
+      </methodref>
+      <methodref name="CleanupInstance" visibility="public">
+      </methodref>
+      <methodref name="ClassType" visibility="public">
+      </methodref>
+      <methodref name="ClassName" visibility="public">
+      </methodref>
+      <methodref name="ClassNameIs" visibility="public">
+      </methodref>
+      <methodref name="ClassParent" visibility="public">
+      </methodref>
+      <methodref name="ClassInfo" visibility="public">
+      </methodref>
+      <methodref name="InstanceSize" visibility="public">
+      </methodref>
+      <methodref name="InheritsFrom" visibility="public">
+      </methodref>
+      <methodref name="MethodAddress" visibility="public">
+      </methodref>
+      <methodref name="MethodName" visibility="public">
+      </methodref>
+      <methodref name="FieldAddress" visibility="public">
+      </methodref>
+      <methodref name="GetInterface" visibility="public">
+      </methodref>
+      <methodref name="GetInterfaceEntry" visibility="public">
+      </methodref>
+      <methodref name="GetInterfaceTable" visibility="public">
+      </methodref>
+      <methodref name="SafeCallException" visibility="public">
+      </methodref>
+      <methodref name="AfterConstruction" visibility="public">
+      </methodref>
+      <methodref name="BeforeDestruction" visibility="public">
+      </methodref>
+      <methodref name="Dispatch" visibility="public">
+      </methodref>
+      <methodref name="DefaultHandler" visibility="public">
+      </methodref>
+      <methodref name="NewInstance" visibility="public">
+      </methodref>
+      <methodref name="FreeInstance" visibility="public">
+      </methodref>
+      <methodref name="Destroy" visibility="public">
+      </methodref>
+    </ancestor>
+    <members>
+      <field name="Mode" type="Word" visibility="private" />
+      <field name="Stream" type="TFileStream" visibility="private" />
+      <field name="EndOfFile" type="Boolean" visibility="public" />
+      <constructor name="Create" visibility="public">
+        <parameters>
+          <parameter name="FN" type="ShortString" />
+          <parameter name="AMode" type="Word" />
+        </parameters>
+      </constructor>
+      <function name="GetLines" visibility="public">
+        <parameters>
+          <retval type="Integer" />
+        </parameters>
+      </function>
+      <procedure name="ReadLn" visibility="public">
+        <parameters>
+          <parameter name="S" paramflags="var">
+            <type name="S" type="ShortString" />
+          </parameter>
+        </parameters>
+      </procedure>
+      <procedure name="ReadList" visibility="public">
+        <parameters>
+          <parameter name="SL" type="TStringList" paramflags="var" />
+        </parameters>
+      </procedure>
+      <destructor name="Done" visibility="public">
+        <parameters>
+        </parameters>
+      </destructor>
+    </members>
+  </class>
+  <set name="TBitSet" />
+  <function name="OrderInSeparatedList" visibility="private">
+    <parameters>
+      <parameter name="Srch" type="string" paramflags="const" />
+      <parameter name="SepList" type="string" paramflags="const" />
+      <parameter name="Sep" type="string" paramflags="const" />
+      <retval type="Integer" />
+    </parameters>
+  </function>
+  <function name="MkStringsByComma" visibility="private">
+    <parameters>
+      <parameter name="S" type="string" />
+      <retval type="TStrings" />
+    </parameters>
+  </function>
+  <procedure name="ValidateQuoteStringValues" visibility="private">
+    <parameters>
+      <parameter name="R" type="TStrings" />
+    </parameters>
+  </procedure>
+  <function name="SLTranslateLines2Ofs" visibility="private" procflags="overload">
+    <parameters>
+      <parameter name="AStrings" type="TStrings" />
+      <parameter name="APos" type="TPoint" paramflags="var" />
+      <retval type="Cardinal" />
+    </parameters>
+  </function>
+  <function name="SLTranslateOfs2Pos" visibility="private" procflags="overload">
+    <parameters>
+      <parameter name="AStrings" type="TStrings" />
+      <parameter name="AOfs" type="Cardinal" />
+      <retval type="TPoint" />
+    </parameters>
+  </function>
+  <function name="SLTranslateLines2Ofs" visibility="private" procflags="overload">
+    <parameters>
+      <parameter name="AStrings" type="TWideStrings" />
+      <parameter name="APos" type="TPoint" paramflags="var" />
+      <retval type="Cardinal" />
+    </parameters>
+  </function>
+  <function name="SLTranslateOfs2Pos" visibility="private" procflags="overload">
+    <parameters>
+      <parameter name="AStrings" type="TWideStrings" />
+      <parameter name="AOfs" type="Cardinal" />
+      <retval type="TPoint" />
+    </parameters>
+  </function>
+  <function name="IsEmptyString" visibility="private">
+    <parameters>
+      <parameter name="S" type="string" />
+      <retval type="Boolean" />
+    </parameters>
+  </function>
+  <procedure name="DeleteLeadSpaceStr" visibility="private">
+    <parameters>
+      <parameter name="S" type="string" paramflags="var" />
+    </parameters>
+  </procedure>
+  <procedure name="DeleteLeadTerminateSpaceStr" visibility="private" procflags="overload">
+    <parameters>
+      <parameter name="S" type="string" paramflags="var" />
+    </parameters>
+  </procedure>
+  <procedure name="DeleteLeadTerminateSpaceStr" visibility="private" procflags="overload">
+    <parameters>
+      <parameter name="S" type="WideString" paramflags="var" />
+    </parameters>
+  </procedure>
+  <procedure name="DeleteDoubledSpaceStr" visibility="private" procflags="overload">
+    <parameters>
+      <parameter name="S" type="string" paramflags="var" />
+    </parameters>
+  </procedure>
+  <procedure name="DeleteDoubledSpaceStr" visibility="private" procflags="overload">
+    <parameters>
+      <parameter name="S" type="WideString" paramflags="var" />
+    </parameters>
+  </procedure>
+  <procedure name="DeleteLeadTerminateDoubledSpaceStr" visibility="private" procflags="overload">
+    <parameters>
+      <parameter name="S" type="string" paramflags="var" />
+    </parameters>
+  </procedure>
+  <procedure name="DeleteLeadTerminateDoubledSpaceStr" visibility="private" procflags="overload">
+    <parameters>
+      <parameter name="S" type="WideString" paramflags="var" />
+    </parameters>
+  </procedure>
+  <procedure name="DeleteControlsStr" visibility="private">
+    <parameters>
+      <parameter name="S" type="string" paramflags="var" />
+    </parameters>
+  </procedure>
+  <function name="GetLimitQtyWords" visibility="private">
+    <parameters>
+      <parameter name="S" type="string" paramflags="const" />
+      <parameter name="StartPosition" type="Integer" paramflags="var" />
+      <parameter name="LessThanBytes" type="Integer" />
+      <retval type="string" />
+    </parameters>
+  </function>
+  <function name="LimitQtyWordsPos" visibility="private">
+    <parameters>
+      <parameter name="S" type="string" paramflags="const" />
+      <parameter name="StartPosition" type="Word" paramflags="var" />
+      <parameter name="LastPosition" type="Word" paramflags="var" />
+      <parameter name="LessThanBytes" type="Integer" />
+      <retval type="Boolean" />
+    </parameters>
+  </function>
+  <procedure name="DeleteControlsStrCRLF2Space" visibility="private" procflags="overload">
+    <parameters>
+      <parameter name="S" type="string" paramflags="var" />
+    </parameters>
+  </procedure>
+  <procedure name="DeleteControlsStrCRLF2Space" visibility="private" procflags="overload">
+    <parameters>
+      <parameter name="S" type="WideString" paramflags="var" />
+    </parameters>
+  </procedure>
+  <function name="CheckParameter" visibility="private">
+    <parameters>
+      <parameter name="Prefix" type="ShortString" paramflags="var" />
+      <parameter name="Quotes" type="ShortString" paramflags="var" />
+      <parameter name="AParameter" type="string" paramflags="var" />
+      <parameter name="Suffix" type="ShortString" paramflags="var" />
+      <retval type="Boolean" />
+    </parameters>
+  </function>
+  <procedure name="DeleteLeadTerminateSpaceSL" visibility="private">
+    <parameters>
+      <parameter name="S" type="TStrings" />
+    </parameters>
+  </procedure>
+  <function name="TryReadDecimal" visibility="private">
+    <parameters>
+      <parameter name="S" type="string" />
+      <parameter name="Bytes" type="Byte" />
+      <parameter name="Res" type="Integer" paramflags="var" />
+      <retval type="Integer" />
+    </parameters>
+  </function>
+  <function name="CopyColon" visibility="private">
+    <parameters>
+      <parameter name="S" type="string" />
+      <parameter name="Index" type="Integer" />
+      <parameter name="Count" type="Integer" />
+      <retval type="string" />
+    </parameters>
+  </function>
+  <function name="ChangeChars" visibility="private">
+    <parameters>
+      <parameter name="src" type="Char" />
+      <parameter name="dest" type="Char" />
+      <parameter name="S" type="string" paramflags="const" />
+      <retval type="string" />
+    </parameters>
+  </function>
+  <function name="PosFrom" visibility="private">
+    <parameters>
+      <parameter name="From" type="Integer" />
+      <parameter name="srch" type="string" paramflags="const" />
+      <parameter name="where" type="string" paramflags="const" />
+      <parameter name="ACaseSensitive" type="Boolean">
+        <value>
+          True
+        </value>
+      </parameter>
+      <retval type="Integer" />
+    </parameters>
+  </function>
+  <function name="PosBack" visibility="private" procflags="overload">
+    <parameters>
+      <parameter name="srch" type="string" paramflags="const" />
+      <parameter name="where" type="string" paramflags="const" />
+      <retval type="Integer" />
+    </parameters>
+  </function>
+  <function name="PosBack" visibility="private" procflags="overload">
+    <parameters>
+      <parameter name="srch" type="WideString" paramflags="const" />
+      <parameter name="where" type="WideString" paramflags="const" />
+      <retval type="Integer" />
+    </parameters>
+  </function>
+  <function name="NotQuotedPos" visibility="private">
+    <parameters>
+      <parameter name="ASrchChar" type="Char" paramflags="const" />
+      <parameter name="AOChar" type="Char" paramflags="const" />
+      <parameter name="ACChar" type="Char" paramflags="const" />
+      <parameter name="where" type="string" paramflags="const" />
+      <retval type="Integer" />
+    </parameters>
+  </function>
+  <function name="PosBackFrom" visibility="private">
+    <parameters>
+      <parameter name="from" type="Integer" />
+      <parameter name="srch" type="string" paramflags="const" />
+      <parameter name="where" type="string" paramflags="const" />
+      <retval type="Integer" />
+    </parameters>
+  </function>
+  <function name="ChangeChar" visibility="private">
+    <parameters>
+      <parameter name="src" type="Char" />
+      <parameter name="dest" type="Char" />
+      <parameter name="S" type="string" paramflags="var" />
+      <retval type="Byte" />
+    </parameters>
+  </function>
+  <function name="isDecimal" visibility="private">
+    <parameters>
+      <parameter name="S" type="string" paramflags="const" />
+      <retval type="Boolean" />
+    </parameters>
+  </function>
+  <function name="PartisDecimal" visibility="private">
+    <parameters>
+      <parameter name="b" type="Integer" />
+      <parameter name="e" type="Integer" />
+      <parameter name="S" type="string" paramflags="const" />
+      <retval type="Boolean" />
+    </parameters>
+  </function>
+  <function name="isPascalInt" visibility="private">
+    <parameters>
+      <parameter name="S" type="string" paramflags="const" />
+      <retval type="Boolean" />
+    </parameters>
+  </function>
+  <function name="isHexaDecimal" visibility="private">
+    <parameters>
+      <parameter name="S" type="string" paramflags="const" />
+      <retval type="Boolean" />
+    </parameters>
+  </function>
+  <function name="PartisHexaDecimal" visibility="private">
+    <parameters>
+      <parameter name="b" type="Integer" />
+      <parameter name="e" type="Integer" />
+      <parameter name="S" type="string" paramflags="const" />
+      <retval type="Boolean" />
+    </parameters>
+  </function>
+  <function name="LowestInSet" visibility="private">
+    <parameters>
+      <parameter name="setofbyte" paramflags="var" />
+      <parameter name="start" type="Byte" />
+      <retval type="Byte" />
+    </parameters>
+  </function>
+  <function name="DecimalDigits" visibility="private">
+    <parameters>
+      <parameter name="V" type="Integer" />
+      <parameter name="Positions" paramflags="var" />
+      <retval type="Integer" />
+    </parameters>
+  </function>
+  <function name="LinesInFile" visibility="private">
+    <parameters>
+      <parameter name="FN" type="string" paramflags="const" />
+      <retval type="Integer" />
+    </parameters>
+  </function>
+  <function name="LinesInLongFile" visibility="private">
+    <parameters>
+      <parameter name="FN" type="ShortString" />
+      <retval type="Integer" />
+    </parameters>
+  </function>
+  <function name="GetFileLine" visibility="private">
+    <parameters>
+      <parameter name="FileName" type="ShortString" />
+      <parameter name="line" type="Integer" />
+      <retval type="ShortString" />
+    </parameters>
+  </function>
+  <function name="NotEmptyLinesInLongFile" visibility="private">
+    <parameters>
+      <parameter name="FN" type="ShortString" />
+      <retval type="Integer" />
+    </parameters>
+  </function>
+  <function name="RecordLinesInLongFile" visibility="private">
+    <parameters>
+      <parameter name="Nums" type="Byte" />
+      <parameter name="NumFLen" type="Byte" />
+      <parameter name="FN" type="ShortString" />
+      <parameter name="ProgressIndicator" type="StateBarproc" />
+      <retval type="Integer" />
+    </parameters>
+  </function>
+  <function name="PosCharsFrom" visibility="private">
+    <parameters>
+      <parameter name="From" type="Word" />
+      <parameter name="srch" type="ShortString" />
+      <parameter name="s" type="string" />
+      <retval type="Word" />
+    </parameters>
+  </function>
+  <function name="TokenStart" visibility="private">
+    <parameters>
+      <parameter name="No" type="Word" />
+      <parameter name="delimiter" type="string" paramflags="const" />
+      <parameter name="S" type="string" paramflags="const" />
+      <retval type="Integer" />
+    </parameters>
+  </function>
+  <function name="GetToken" visibility="private">
+    <parameters>
+      <parameter name="No" type="Word" />
+      <parameter name="delimiter" type="string" paramflags="const" />
+      <parameter name="S" type="string" paramflags="const" />
+      <retval type="string" />
+    </parameters>
+  </function>
+  <function name="GetWord" visibility="private">
+    <parameters>
+      <parameter name="S" type="string" paramflags="var" />
+      <parameter name="WordLen" type="Integer" paramflags="var" />
+      <retval type="string" />
+    </parameters>
+  </function>
+  <function name="ExtractToken" visibility="private">
+    <parameters>
+      <parameter name="S" type="string" paramflags="const" />
+      <parameter name="p" type="Integer" paramflags="var" />
+      <retval type="string" />
+    </parameters>
+  </function>
+  <function name="ExtractTokenBack" visibility="private">
+    <parameters>
+      <parameter name="S" type="string" paramflags="const" />
+      <parameter name="p" type="Integer" paramflags="var" />
+      <retval type="string" />
+    </parameters>
+  </function>
+  <function name="TokensTail" visibility="private">
+    <parameters>
+      <parameter name="No" type="Word" />
+      <parameter name="delimiter" type="string" paramflags="const" />
+      <parameter name="S" type="string" paramflags="const" />
+      <retval type="string" />
+    </parameters>
+  </function>
+  <procedure name="SetToken" visibility="private">
+    <parameters>
+      <parameter name="No" type="Word" />
+      <parameter name="delimiter" type="string" paramflags="const" />
+      <parameter name="Value" type="string" paramflags="const" />
+      <parameter name="S" type="string" paramflags="var" />
+    </parameters>
+  </procedure>
+  <function name="ReplaceStr" visibility="private" procflags="overload">
+    <parameters>
+      <parameter name="Dest" type="string" paramflags="var" />
+      <parameter name="CaseSens" type="Boolean" />
+      <parameter name="Fnd" type="string" paramflags="const" />
+      <parameter name="Repl" type="string" paramflags="const" />
+      <retval type="Boolean" />
+    </parameters>
+  </function>
+  <function name="ReplaceStr" visibility="private" procflags="overload">
+    <parameters>
+      <parameter name="Dest" type="WideString" paramflags="var" />
+      <parameter name="CaseSens" type="Boolean" />
+      <parameter name="Fnd" type="WideString" paramflags="const" />
+      <parameter name="Repl" type="WideString" paramflags="const" />
+      <retval type="Boolean" />
+    </parameters>
+  </function>
+  <function name="ReplaceTag" visibility="private">
+    <parameters>
+      <parameter name="Dest" type="string" paramflags="var" />
+      <parameter name="Prefix" type="string" paramflags="const" />
+      <parameter name="Suffix" type="string" paramflags="const" />
+      <parameter name="Quote" type="Char" />
+      <parameter name="ReplFunc" type="TChecktag" />
+      <retval type="Integer" />
+    </parameters>
+  </function>
+  <function name="BlankStringTo" visibility="private">
+    <parameters>
+      <parameter name="S" type="ShortString" paramflags="var" />
+      <parameter name="blanks" type="Word" />
+      <retval type="ShortString" />
+    </parameters>
+  </function>
+  <function name="BlankToZero" visibility="private">
+    <parameters>
+      <parameter name="S" type="ShortString" paramflags="var" />
+      <retval type="ShortString" />
+    </parameters>
+  </function>
+  <function name="CopyFile" visibility="private">
+    <parameters>
+      <parameter name="SrcN" type="ShortString" paramflags="var" />
+      <parameter name="DestN" type="ShortString" paramflags="var" />
+      <retval type="Integer" />
+    </parameters>
+  </function>
+  <function name="LeadZero" visibility="private">
+    <parameters>
+      <parameter name="S" type="string" paramflags="const" />
+      <parameter name="Bytes" type="Byte" />
+      <retval type="string" />
+    </parameters>
+  </function>
+  <function name="EraseChars" visibility="private">
+    <parameters>
+      <parameter name="Chars" type="TCS" paramflags="var" />
+      <parameter name="S" type="ShortString" paramflags="var" />
+      <retval type="ShortString" />
+    </parameters>
+  </function>
+  <function name="EraseCharsUP" visibility="private">
+    <parameters>
+      <parameter name="Chars" type="TCS" paramflags="var" />
+      <parameter name="S" type="ShortString" paramflags="var" />
+      <retval type="ShortString" />
+    </parameters>
+  </function>
+  <function name="ExtractString" visibility="private">
+    <parameters>
+      <parameter name="B" paramflags="var" />
+      <parameter name="Len" type="Word" paramflags="const" />
+      <retval type="ShortString" />
+    </parameters>
+  </function>
+  <function name="ExtractLongInt" visibility="private">
+    <parameters>
+      <parameter name="B" paramflags="var" />
+      <parameter name="Len" type="Word" paramflags="const" />
+      <retval type="Integer" />
+    </parameters>
+  </function>
+  <function name="ExtractExtended" visibility="private">
+    <parameters>
+      <parameter name="B" paramflags="var" />
+      <parameter name="Len" type="Word" paramflags="const" />
+      <retval type="Extended" />
+    </parameters>
+  </function>
+  <procedure name="FillMemo" visibility="private">
+    <parameters>
+      <parameter name="SL" type="TStrings" />
+      <parameter name="B" paramflags="var" />
+      <parameter name="Len" type="Word" paramflags="const" />
+    </parameters>
+  </procedure>
+  <function name="IsNotBlank" visibility="private">
+    <parameters>
+      <parameter name="S" type="ShortString" paramflags="var" />
+      <retval type="Boolean" />
+    </parameters>
+  </function>
+  <function name="IsNotBlank0" visibility="private">
+    <parameters>
+      <parameter name="S" type="PAnsiChar" paramflags="const" />
+      <retval type="Boolean" />
+    </parameters>
+  </function>
+  <procedure name="UpCaseBuffer" visibility="private">
+    <parameters>
+      <parameter name="Data">
+        <array name="Data">
+          <element type="Char" />
+        </array>
+      </parameter>
+      <parameter name="Len" type="Word" />
+    </parameters>
+  </procedure>
+  <function name="PCountWords" visibility="private">
+    <parameters>
+      <parameter name="Len" type="Integer" paramflags="var" />
+      <parameter name="P" type="PAnsiChar" />
+      <retval type="Integer" />
+    </parameters>
+  </function>
+  <function name="ReadSet" visibility="private">
+    <parameters>
+      <parameter name="S" type="ShortString" paramflags="var" />
+      <retval type="TBS" />
+    </parameters>
+  </function>
+  <function name="SetAsLong" visibility="private">
+    <parameters>
+      <parameter name="B" paramflags="var" />
+      <parameter name="Bytes" type="Byte" />
+      <retval type="Integer" />
+    </parameters>
+  </function>
+  <function name="ExtractCurrency" visibility="private">
+    <parameters>
+      <parameter name="S" type="ShortString" paramflags="var" />
+      <retval type="Extended" />
+    </parameters>
+  </function>
+  <function name="ExtractDateTime" visibility="private">
+    <parameters>
+      <parameter name="S" type="ShortString" paramflags="var" />
+      <retval type="Extended" />
+    </parameters>
+  </function>
+  <function name="ExtractCurrencyFromBuf" visibility="private">
+    <parameters>
+      <parameter name="B" paramflags="var" />
+      <parameter name="Len" type="Word" paramflags="const" />
+      <retval type="Extended" />
+    </parameters>
+  </function>
+  <function name="ExtractDateTimeFromBuf" visibility="private">
+    <parameters>
+      <parameter name="B" paramflags="var" />
+      <parameter name="Len" type="Word" paramflags="const" />
+      <retval type="Extended" />
+    </parameters>
+  </function>
+  <function name="CompressList" visibility="private">
+    <parameters>
+      <parameter name="CompCAPtr" type="Pointer" />
+      <parameter name="PrefixLen" type="Smallint" />
+      <retval type="Smallint" />
+    </parameters>
+  </function>
+  <function name="YesNoS" visibility="private">
+    <parameters>
+      <parameter name="Yes" type="Boolean" />
+      <retval type="ShortString" />
+    </parameters>
+  </function>
+  <function name="ExtractUnixFileName" visibility="private">
+    <parameters>
+      <parameter name="AFn" type="string" />
+      <retval type="string" />
+    </parameters>
+  </function>
+  <function name="ExtractUnixDosFileName" visibility="private">
+    <parameters>
+      <parameter name="AFn" type="string" />
+      <retval type="string" />
+    </parameters>
+  </function>
+  <function name="IsValidURL" visibility="private">
+    <parameters>
+      <parameter name="AURL" type="string" />
+      <retval type="Boolean" />
+    </parameters>
+  </function>
+  <function name="isValidURLs" visibility="private">
+    <parameters>
+      <parameter name="AURL" type="string" />
+      <retval type="Boolean" />
+    </parameters>
+  </function>
+  <function name="IsIPaddress" visibility="private">
+    <parameters>
+      <parameter name="host" type="string" paramflags="const" />
+      <retval type="Boolean" />
+    </parameters>
+  </function>
+  <function name="IP2Str" visibility="private">
+    <parameters>
+      <parameter name="AIP" type="Cardinal" />
+      <retval type="string" />
+    </parameters>
+  </function>
+  <function name="GetBias" visibility="private">
+    <parameters>
+      <retval type="Integer" />
+    </parameters>
+  </function>
+  <function name="ParseUrl" visibility="private">
+    <parameters>
+      <parameter name="url" type="string" />
+      <parameter name="protocol" type="string" paramflags="var" />
+      <parameter name="user" type="string" paramflags="var" />
+      <parameter name="password" type="string" paramflags="var" />
+      <parameter name="host" type="string" paramflags="var" />
+      <parameter name="IPaddress" type="string" paramflags="var" />
+      <parameter name="fn" type="string" paramflags="var" />
+      <parameter name="bookmark" type="string" paramflags="var" />
+      <parameter name="port" type="Integer" paramflags="var" />
+      <parameter name="ADefprotocol" type="string" paramflags="const" />
+      <parameter name="ADefPort" type="Integer" />
+      <retval type="Boolean" />
+    </parameters>
+  </function>
+  <function name="ParseFtpUrl" visibility="private">
+    <parameters>
+      <parameter name="url" type="string" />
+      <parameter name="protocol" type="string" paramflags="var" />
+      <parameter name="user" type="string" paramflags="var" />
+      <parameter name="password" type="string" paramflags="var" />
+      <parameter name="host" type="string" paramflags="var" />
+      <parameter name="IPaddress" type="string" paramflags="var" />
+      <parameter name="fn" type="string" paramflags="var" />
+      <parameter name="bookmark" type="string" paramflags="var" />
+      <parameter name="port" type="Integer" paramflags="var" />
+      <parameter name="ADefprotocol" type="string" paramflags="const" />
+      <parameter name="ADefPort" type="Integer" />
+      <retval type="Boolean" />
+    </parameters>
+  </function>
+  <function name="ParseLdapUrl" visibility="private">
+    <parameters>
+      <parameter name="url" type="string" />
+      <parameter name="protocol" type="string" paramflags="var" />
+      <parameter name="user" type="string" paramflags="var" />
+      <parameter name="password" type="string" paramflags="var" />
+      <parameter name="host" type="string" paramflags="var" />
+      <parameter name="baseDN" type="string" paramflags="var" />
+      <parameter name="Attributes" type="string" paramflags="var" />
+      <parameter name="Scope" type="string" paramflags="var" />
+      <parameter name="Filter" type="string" paramflags="var" />
+      <parameter name="port" type="Integer" paramflags="var" />
+      <parameter name="ADefprotocol" type="string" paramflags="const" />
+      <parameter name="ADefPort" type="Integer" />
+      <retval type="Boolean" />
+    </parameters>
+  </function>
+  <function name="ComposeUrl" visibility="private">
+    <parameters>
+      <parameter name="AProtocol" type="string" paramflags="const" />
+      <parameter name="AUser" type="string" paramflags="const" />
+      <parameter name="APassword" type="string" paramflags="const" />
+      <parameter name="AHost" type="string" paramflags="const" />
+      <parameter name="AFn" type="string" paramflags="const" />
+      <parameter name="ABookmark" type="string" paramflags="const" />
+      <parameter name="Aport" type="Integer" />
+      <retval type="string" />
+    </parameters>
+  </function>
+  <function name="ComposeLdapUrl" visibility="private">
+    <parameters>
+      <parameter name="AProtocol" type="string" paramflags="const" />
+      <parameter name="AUser" type="string" paramflags="const" />
+      <parameter name="APassword" type="string" paramflags="const" />
+      <parameter name="AHost" type="string" paramflags="const" />
+      <parameter name="ADn" type="string" paramflags="const" />
+      <parameter name="AAttr" type="string" paramflags="const" />
+      <parameter name="AScope" type="string" paramflags="const" />
+      <parameter name="AFilter" type="string" paramflags="const" />
+      <parameter name="Aport" type="Integer" />
+      <retval type="string" />
+    </parameters>
+  </function>
+  <function name="ReplaceDNInLdapUrl" visibility="private">
+    <parameters>
+      <parameter name="ANewDN" type="string" paramflags="const" />
+      <parameter name="AUrl" type="string" paramflags="const" />
+      <retval type="string" />
+    </parameters>
+  </function>
+  <function name="IsFtpUrl" visibility="private">
+    <parameters>
+      <parameter name="AUrl" type="string" paramflags="const" />
+      <retval type="Boolean" />
+    </parameters>
+  </function>
+  <function name="IsLdapUrl" visibility="private">
+    <parameters>
+      <parameter name="AUrl" type="string" paramflags="const" />
+      <retval type="Boolean" />
+    </parameters>
+  </function>
+  <function name="MkAbsoluteURL" visibility="private">
+    <parameters>
+      <parameter name="Aroot" type="string" />
+      <parameter name="Aurl" type="string" />
+      <retval type="string" />
+    </parameters>
+  </function>
+  <function name="ExtractUrlAddress" visibility="private">
+    <parameters>
+      <parameter name="url" type="string" />
+      <retval type="string" />
+    </parameters>
+  </function>
+  <function name="ExtractUrlHost" visibility="private">
+    <parameters>
+      <parameter name="url" type="string" />
+      <retval type="string" />
+    </parameters>
+  </function>
+  <function name="ExtractUrlPort" visibility="private">
+    <parameters>
+      <parameter name="url" type="string" />
+      <retval type="Integer" />
+    </parameters>
+  </function>
+  <function name="ExtractUrlFileName" visibility="private">
+    <parameters>
+      <parameter name="url" type="string" />
+      <retval type="string" />
+    </parameters>
+  </function>
+  <function name="GetFileNameOnly" visibility="private">
+    <parameters>
+      <parameter name="s" type="string" paramflags="const" />
+      <retval type="string" />
+    </parameters>
+  </function>
+  <function name="ExtractUrlProtocol" visibility="private">
+    <parameters>
+      <parameter name="url" type="string" />
+      <retval type="string" />
+    </parameters>
+  </function>
+  <function name="IsFileMask" visibility="private">
+    <parameters>
+      <parameter name="FN" type="ShortString" paramflags="var" />
+      <retval type="Boolean" />
+    </parameters>
+  </function>
+  <function name="FilesSimilar" visibility="private">
+    <parameters>
+      <parameter name="S1" type="string" />
+      <parameter name="S2" type="string" />
+      <retval type="Boolean" />
+    </parameters>
+  </function>
+  <function name="AnsiDiffText" visibility="private">
+    <parameters>
+      <parameter name="AS1" type="string" />
+      <parameter name="AS2" type="string" />
+      <retval type="Integer" />
+    </parameters>
+  </function>
+  <function name="IsFolderParent" visibility="private">
+    <parameters>
+      <parameter name="Parent" type="string" />
+      <parameter name="Nested" type="string" />
+      <retval type="Boolean" />
+    </parameters>
+  </function>
+  <function name="DiffPath" visibility="private">
+    <parameters>
+      <parameter name="Parent" type="string" />
+      <parameter name="Nested" type="string" />
+      <retval type="string" />
+    </parameters>
+  </function>
+  <function name="CountFilesLike" visibility="private">
+    <parameters>
+      <parameter name="AMask" type="string" />
+      <retval type="Integer" />
+    </parameters>
+  </function>
+  <function name="DeleteFiles" visibility="private">
+    <parameters>
+      <parameter name="AMask" type="string" />
+      <retval type="Integer" />
+    </parameters>
+  </function>
+  <function name="IsAbsolutePath" visibility="private">
+    <parameters>
+      <parameter name="APath" type="string" paramflags="const" />
+      <retval type="Boolean" />
+    </parameters>
+  </function>
+  <function name="IsDosPath" visibility="private">
+    <parameters>
+      <parameter name="APath" type="string" paramflags="const" />
+      <retval type="Boolean" />
+    </parameters>
+  </function>
+  <function name="ExpandRelativePath" visibility="private">
+    <parameters>
+      <parameter name="BaseName" type="string" paramflags="const" />
+      <parameter name="AFN" type="string" paramflags="const" />
+      <retval type="string" />
+    </parameters>
+  </function>
+  <function name="DirExists" visibility="private">
+    <parameters>
+      <parameter name="fn" type="string" />
+      <retval type="Boolean" />
+    </parameters>
+  </function>
+  <function name="UnixPathToDosPath" visibility="private">
+    <parameters>
+      <parameter name="Path" type="string" paramflags="const" />
+      <retval type="string" />
+    </parameters>
+  </function>
+  <function name="DosPathToUnixPath" visibility="private">
+    <parameters>
+      <parameter name="Path" type="string" paramflags="const" />
+      <retval type="string" />
+    </parameters>
+  </function>
+  <procedure name="Walk_Tree" visibility="private">
+    <parameters>
+      <parameter name="AFilePattern" type="string" />
+      <parameter name="Start" type="string" />
+      <parameter name="Attr" type="Integer" />
+      <parameter name="Recursive" type="Boolean" />
+      <parameter name="DoIt" type="TOnProcess_File" />
+      <parameter name="AEnv" type="TObject" />
+    </parameters>
+  </procedure>
+  <procedure name="Walk_DirTree" visibility="private">
+    <parameters>
+      <parameter name="Start" type="string" />
+      <parameter name="DoIt" type="TOnProcess_File" />
+      <parameter name="AEnv" type="TObject" />
+    </parameters>
+  </procedure>
+  <function name="ConcatPath" visibility="private">
+    <parameters>
+      <parameter name="Path" type="string" paramflags="const" />
+      <parameter name="FileName" type="string" />
+      <parameter name="APathDelimiter" type="Char">
+        <value>
+          $0
+        </value>
+      </parameter>
+      <retval type="string" />
+    </parameters>
+  </function>
+  <function name="ConcatAliasPath" visibility="private">
+    <parameters>
+      <parameter name="Aliases" type="TStrings" paramflags="const" />
+      <parameter name="DefPath" type="string" paramflags="const" />
+      <parameter name="FileName" type="string" />
+      <retval type="string" />
+    </parameters>
+  </function>
+  <function name="httpConcatPath" visibility="private">
+    <parameters>
+      <parameter name="ARoot" type="string" />
+      <parameter name="FileName" type="string" />
+      <retval type="string" />
+    </parameters>
+  </function>
+  <function name="HTTPDecode" visibility="private">
+    <parameters>
+      <parameter name="AStr" type="string" paramflags="const" />
+      <parameter name="AUtf8" type="Boolean" />
+      <retval type="WideString" />
+    </parameters>
+  </function>
+  <function name="HTTPEncode" visibility="private">
+    <parameters>
+      <parameter name="AStr" type="WideString" paramflags="const" />
+      <parameter name="AUtf8" type="Boolean" />
+      <retval type="string" />
+    </parameters>
+  </function>
+  <function name="HTTPEncode2" visibility="private">
+    <parameters>
+      <parameter name="AStr" type="string" paramflags="const" />
+      <retval type="string" />
+    </parameters>
+  </function>
+  <function name="ReplaceExt" visibility="private">
+    <parameters>
+      <parameter name="Ext" type="string" />
+      <parameter name="Pat" type="string" />
+      <retval type="string" />
+    </parameters>
+  </function>
+  <function name="ExtractFileNameWOext" visibility="private">
+    <parameters>
+      <parameter name="AFn" type="string" />
+      <retval type="string" />
+    </parameters>
+  </function>
+  <function name="EExecuteFile" visibility="private">
+    <devnotes>
+      !---- I am not sure about alone dot 
+    </devnotes>
+    <parameters>
+      <parameter name="AFileName" type="string" />
+      <retval type="Boolean" />
+    </parameters>
+  </function>
+  <function name="WinExecErr" visibility="private">
+    <parameters>
+      <parameter name="No" type="Word" />
+      <retval type="ShortString" />
+    </parameters>
+  </function>
+  <function name="GetLastErrorDescription" visibility="private">
+    <parameters>
+      <parameter name="AError" type="Cardinal" />
+      <retval type="WideString" />
+    </parameters>
+  </function>
+  <function name="exp2" visibility="private">
+    <parameters>
+      <parameter name="x" type="Word" />
+      <retval type="Word" />
+    </parameters>
+  </function>
+  <function name="near2m" visibility="private">
+    <parameters>
+      <parameter name="x" type="Word" />
+      <retval type="Word" />
+    </parameters>
+  </function>
+  <function name="File2String" visibility="private" procflags="overload">
+    <parameters>
+      <parameter name="AFN" type="string" paramflags="const" />
+      <retval type="string" />
+    </parameters>
+  </function>
+  <function name="File2String" visibility="private" procflags="overload">
+    <parameters>
+      <parameter name="AFN" type="WideString" paramflags="const" />
+      <retval type="WideString" />
+    </parameters>
+  </function>
+  <function name="String2File" visibility="private" procflags="overload">
+    <parameters>
+      <parameter name="AFN" type="string" paramflags="const" />
+      <parameter name="S" type="string" paramflags="const" />
+      <parameter name="ARewrite" type="Boolean">
+        <value>
+          False
+        </value>
+      </parameter>
+      <retval type="Boolean" />
+    </parameters>
+  </function>
+  <function name="String2File" visibility="private" procflags="overload">
+    <parameters>
+      <parameter name="AFN" type="WideString" paramflags="const" />
+      <parameter name="S" type="WideString" paramflags="const" />
+      <parameter name="ARewrite" type="Boolean">
+        <value>
+          False
+        </value>
+      </parameter>
+      <retval type="Boolean" />
+    </parameters>
+  </function>
+  <function name="SortFile" visibility="private">
+    <parameters>
+      <parameter name="AFN" type="string" paramflags="const" />
+      <parameter name="AReserved" type="Integer" />
+      <retval type="Boolean" />
+    </parameters>
+  </function>
+  <function name="CreateTemporaryFileName" visibility="private">
+    <parameters>
+      <parameter name="APrefix" type="string" paramflags="const" />
+      <retval type="string" />
+    </parameters>
+  </function>
+  <procedure name="ANSI2OEM" visibility="private">
+    <parameters>
+      <parameter name="AData" type="string" paramflags="var" />
+    </parameters>
+  </procedure>
+  <procedure name="OEM2ANSI" visibility="private">
+    <parameters>
+      <parameter name="AData" type="string" paramflags="var" />
+    </parameters>
+  </procedure>
+  <function name="CvtFile2OEM" visibility="private">
+    <parameters>
+      <parameter name="AFN" type="string" />
+      <retval type="Boolean" />
+    </parameters>
+  </function>
+  <function name="GetOnlyDecimalDigits" visibility="private">
+    <parameters>
+      <parameter name="S" type="string" paramflags="const" />
+      <retval type="Integer" />
+    </parameters>
+  </function>
+  <procedure name="SaveDecimalDigitsOnly" visibility="private">
+    <parameters>
+      <parameter name="S" type="string" paramflags="var" />
+    </parameters>
+  </procedure>
+  <procedure name="GraphicFieldToBMP" visibility="private">
+    <parameters>
+      <parameter name="FN" type="string" paramflags="const" />
+    </parameters>
+  </procedure>
+  <function name="Hex8" visibility="private">
+    <parameters>
+      <parameter name="S" type="ShortString" />
+      <parameter name="AA" paramflags="var" />
+      <retval type="Integer" />
+    </parameters>
+  </function>
+  <procedure name="strxlat" visibility="private">
+    <parameters>
+      <parameter name="xlat" paramflags="var" />
+      <parameter name="S" type="string" paramflags="var" />
+    </parameters>
+  </procedure>
+  <procedure name="strxlat0" visibility="private">
+    <parameters>
+      <parameter name="xlat" paramflags="var" />
+      <parameter name="S" paramflags="var" />
+    </parameters>
+  </procedure>
+  <function name="CyrLatEQ" visibility="private">
+    <parameters>
+      <parameter name="Key" type="Char" />
+      <retval type="Char" />
+    </parameters>
+  </function>
+  <function name="Int2Alpha" visibility="private">
+    <parameters>
+      <parameter name="AValue" type="Integer" />
+      <retval type="string" />
+    </parameters>
+  </function>
+  <function name="Alpha2Int" visibility="private">
+    <parameters>
+      <parameter name="AValue" type="string" paramflags="const" />
+      <retval type="Integer" />
+    </parameters>
+  </function>
+  <function name="IsExtendedASCII" visibility="private">
+    <parameters>
+      <parameter name="S" type="string" />
+      <retval type="Boolean" />
+    </parameters>
+  </function>
+  <function name="SkhUpperCase" visibility="private">
+    <parameters>
+      <parameter name="IC" type="Char" />
+      <retval type="Char" />
+    </parameters>
+  </function>
+  <function name="SkhLowerCase" visibility="private">
+    <parameters>
+      <parameter name="IC" type="Char" />
+      <retval type="Char" />
+    </parameters>
+  </function>
+  <function name="ControlChar" visibility="private">
+    <parameters>
+      <parameter name="Ch" type="Char" />
+      <retval type="string" />
+    </parameters>
+  </function>
+  <function name="ControlString" visibility="private">
+    <parameters>
+      <parameter name="S" type="string" />
+      <retval type="string" />
+    </parameters>
+  </function>
+  <function name="ParseControlCode" visibility="private">
+    <parameters>
+      <parameter name="S" type="string" />
+      <retval type="string" />
+    </parameters>
+  </function>
+  <function name="DeleteChars" visibility="private">
+    <parameters>
+      <parameter name="Ch" type="Char" />
+      <parameter name="S" type="string" paramflags="const" />
+      <retval type="string" />
+    </parameters>
+  </function>
+  <function name="ExtractBits" visibility="private">
+    <parameters>
+      <parameter name="L" type="Integer" />
+      <parameter name="Bits" type="TBitSet" />
+      <retval type="Integer" />
+    </parameters>
+  </function>
+  <procedure name="SetBits" visibility="private">
+    <parameters>
+      <parameter name="L" type="Integer" />
+      <parameter name="Bits" type="TBitSet" />
+      <parameter name="R" type="Integer" paramflags="var" />
+    </parameters>
+  </procedure>
+  <function name="MaxFrom2" visibility="private">
+    <parameters>
+      <parameter name="V1" type="Integer" />
+      <parameter name="V2" type="Integer" />
+      <retval type="Integer" />
+    </parameters>
+  </function>
+  <function name="FirstRemarkLine" visibility="private">
+    <parameters>
+      <parameter name="RemStart" type="ShortString" paramflags="var" />
+      <parameter name="SL" type="TStrings" />
+      <parameter name="from" type="Integer" />
+      <retval type="Integer" />
+    </parameters>
+  </function>
+  <function name="FindSortedStrings" visibility="private">
+    <parameters>
+      <parameter name="Strings" type="TStrings" />
+      <parameter name="S" type="string" paramflags="const" />
+      <retval type="Integer" />
+    </parameters>
+  </function>
+  <function name="FindExactStartSortedStrings" visibility="private">
+    <parameters>
+      <parameter name="Strings" type="TStrings" />
+      <parameter name="S" type="string" paramflags="const" />
+      <retval type="Integer" />
+    </parameters>
+  </function>
+  <function name="NextValue" visibility="private">
+    <parameters>
+      <parameter name="N" type="Integer" />
+      <parameter name="Name" type="string" />
+      <parameter name="S" type="TStrings" />
+      <parameter name="R" type="string" paramflags="var" />
+      <retval type="Integer" />
+    </parameters>
+  </function>
+  <function name="LastRemarkLine" visibility="private">
+    <parameters>
+      <parameter name="RemStart" type="ShortString" paramflags="var" />
+      <parameter name="RemFinish" type="ShortString" paramflags="var" />
+      <parameter name="SL" type="TStrings" />
+      <parameter name="from" type="Integer" />
+      <retval type="Integer" />
+    </parameters>
+  </function>
+  <procedure name="CyrDates" visibility="private">
+  </procedure>
+  <function name="GetYear" visibility="private">
+    <parameters>
+      <parameter name="Tm" type="TDateTime" />
+      <retval type="Integer" />
+    </parameters>
+  </function>
+  <function name="GetMonth" visibility="private">
+    <parameters>
+      <parameter name="Tm" type="TDateTime" />
+      <retval type="Integer" />
+    </parameters>
+  </function>
+  <function name="GetDay" visibility="private">
+    <parameters>
+      <parameter name="Tm" type="TDateTime" />
+      <retval type="Integer" />
+    </parameters>
+  </function>
+  <function name="GetHour" visibility="private">
+    <parameters>
+      <parameter name="Tm" type="TDateTime" />
+      <retval type="Integer" />
+    </parameters>
+  </function>
+  <procedure name="SetHour" visibility="private">
+    <parameters>
+      <parameter name="Tm" type="TDateTime" paramflags="var" />
+      <parameter name="NewHour" type="Integer" />
+    </parameters>
+  </procedure>
+  <function name="GetMin" visibility="private">
+    <parameters>
+      <parameter name="Tm" type="TDateTime" />
+      <retval type="Integer" />
+    </parameters>
+  </function>
+  <procedure name="SetMin" visibility="private">
+    <parameters>
+      <parameter name="Tm" type="TDateTime" paramflags="var" />
+      <parameter name="NewMin" type="Integer" />
+    </parameters>
+  </procedure>
+  <procedure name="IncTime" visibility="private">
+    <parameters>
+      <parameter name="Tm" type="TDateTime" paramflags="var" />
+      <parameter name="AddHour" type="Integer" />
+      <parameter name="AddMinutes" type="Integer" />
+    </parameters>
+  </procedure>
+  <procedure name="RoundTime" visibility="private">
+    <parameters>
+      <parameter name="Tm" type="TDateTime" paramflags="var" />
+      <parameter name="AHour" type="Word" />
+      <parameter name="AMinutes" type="Word" />
+    </parameters>
+  </procedure>
+  <function name="ParseHTTPDate" visibility="private">
+    <parameters>
+      <parameter name="DateStr" type="string" paramflags="const" />
+      <retval type="TDateTime" />
+    </parameters>
+  </function>
+  <function name="DateTimeGMTToHttpStr" visibility="private">
+    <parameters>
+      <parameter name="GMTValue" type="TDateTime" paramflags="const" />
+      <retval type="string" />
+    </parameters>
+  </function>
+  <function name="DateTimeToInternetStr" visibility="private">
+    <parameters>
+      <parameter name="Value" type="TDateTime" paramflags="const" />
+      <parameter name="AIsGMT" type="Boolean" paramflags="const">
+        <value>
+          False
+        </value>
+      </parameter>
+      <retval type="string" />
+    </parameters>
+  </function>
+  <function name="StrInternetToDateTime" visibility="private">
+    <parameters>
+      <parameter name="Value" type="string" />
+      <retval type="TDateTime" />
+    </parameters>
+  </function>
+  <function name="DigitsTerminatedBySemicolonQTY" visibility="private">
+    <parameters>
+      <parameter name="TokenString" type="string" paramflags="const" />
+      <parameter name="Position" type="Integer" />
+      <retval type="Integer" />
+    </parameters>
+  </function>
+  <function name="GetWEBStyleCharFromString" visibility="private">
+    <parameters>
+      <parameter name="TokenString" type="string" />
+      <parameter name="Position" type="Integer" paramflags="var" />
+      <retval type="Char" />
+    </parameters>
+  </function>
+  <function name="WEBStyleString2ASCII" visibility="private">
+    <parameters>
+      <parameter name="TokenString" type="string" />
+      <retval type="string" />
+    </parameters>
+  </function>
+  <function name="WEBStyleAndControlString2ASCII" visibility="private">
+    <parameters>
+      <parameter name="TokenString" type="string" />
+      <retval type="string" />
+    </parameters>
+  </function>
+  <function name="ASCII2HTML" visibility="private">
+    <parameters>
+      <parameter name="TokenString" type="string" />
+      <retval type="string" />
+    </parameters>
+  </function>
+  <function name="IntToAplhaNumeric" visibility="private">
+    <parameters>
+      <parameter name="Value" type="Byte" />
+      <parameter name="Digits" type="Integer" />
+      <retval type="string" />
+    </parameters>
+  </function>
+  <function name="IntToAplha" visibility="private">
+    <parameters>
+      <parameter name="Value" type="Byte" />
+      <parameter name="Digits" type="Integer" />
+      <retval type="string" />
+    </parameters>
+  </function>
+  <function name="AplhaNumericToInt" visibility="private">
+    <parameters>
+      <parameter name="Value" type="string" />
+      <retval type="Integer" />
+    </parameters>
+  </function>
+  <function name="AplhaToInt" visibility="private">
+    <parameters>
+      <parameter name="Value" type="string" />
+      <retval type="Integer" />
+    </parameters>
+  </function>
+  <function name="CyrDayOfWeek" visibility="private">
+    <parameters>
+      <parameter name="Dt" type="TDateTime" />
+      <retval type="Integer" />
+    </parameters>
+  </function>
+  <function name="GetRegString" visibility="private">
+    <parameters>
+      <parameter name="ARoot" type="Cardinal" />
+      <parameter name="APath" type="string" paramflags="const" />
+      <parameter name="APar" type="string" paramflags="const" />
+      <parameter name="DefVal" type="string" paramflags="const" />
+      <retval type="string" />
+    </parameters>
+  </function>
+  <procedure name="SetRegString" visibility="private">
+    <parameters>
+      <parameter name="ARoot" type="Cardinal" />
+      <parameter name="APath" type="string" paramflags="const" />
+      <parameter name="APar" type="string" paramflags="const" />
+      <parameter name="AValue" type="string" paramflags="const" />
+    </parameters>
+  </procedure>
+  <function name="ReadLocalTCPName" visibility="private">
+    <parameters>
+      <retval type="string" />
+    </parameters>
+  </function>
+  <function name="IsIPPresent" visibility="private">
+    <parameters>
+      <retval type="Boolean" />
+    </parameters>
+  </function>
+  <function name="ReadIEProxySettings" visibility="private">
+    <parameters>
+      <parameter name="AProtocol" type="string" />
+      <parameter name="ARemoteHost" type="string" />
+      <parameter name="AProxy" type="string" paramflags="var" />
+      <parameter name="APort" type="Integer" paramflags="var" />
+      <retval type="Boolean" />
+    </parameters>
+  </function>
+  <function name="AddEntireKey" visibility="private">
+    <parameters>
+      <parameter name="AKey" type="string" />
+      <parameter name="R" type="TStrings" />
+      <retval type="Boolean" />
+    </parameters>
+  </function>
+  <function name="MimeByExt" visibility="private">
+    <parameters>
+      <parameter name="ext" type="string" />
+      <retval type="string" />
+    </parameters>
+  </function>
+  <function name="Scan32" visibility="private">
+    <parameters>
+      <parameter name="Block" type="string" paramflags="const" />
+      <parameter name="Len" type="Integer" />
+      <parameter name="From" type="Integer" />
+      <parameter name="Str" type="string" paramflags="const" />
+      <retval type="Integer" />
+    </parameters>
+  </function>
+  <procedure name="String2SetOfChar" visibility="private">
+    <parameters>
+      <parameter name="AString" type="string" />
+      <parameter name="AsetOfChar" paramflags="var" />
+    </parameters>
+  </procedure>
+  <function name="ReplaceChars" visibility="private">
+    <parameters>
+      <parameter name="setOfChar" type="TSysCharSet" />
+      <parameter name="newchar" type="Char" />
+      <parameter name="s" type="string" paramflags="var" />
+      <retval type="Integer" />
+    </parameters>
+  </function>
+  <function name="LoadPChar" visibility="private">
+    <parameters>
+      <parameter name="AFN" type="string" />
+      <parameter name="dest" type="Pointer" paramflags="var" />
+      <retval type="Integer" />
+    </parameters>
+  </function>
+  <function name="LoadString" visibility="private">
+    <parameters>
+      <parameter name="AFN" type="string" />
+      <retval type="string" />
+    </parameters>
+  </function>
+  <function name="StoreString" visibility="private">
+    <parameters>
+      <parameter name="AFN" type="string" />
+      <parameter name="S" type="string" />
+      <retval type="Boolean" />
+    </parameters>
+  </function>
+  <procedure name="OverrideAppLocale" visibility="private">
+    <parameters>
+      <parameter name="LocaleOverride" type="string" />
+    </parameters>
+  </procedure>
+  <procedure name="GetLocaleNames" visibility="private">
+    <parameters>
+      <parameter name="SL" type="TStrings" />
+      <parameter name="AOrderByName" type="Boolean" />
+    </parameters>
+  </procedure>
+  <function name="GetDllName" visibility="private">
+    <parameters>
+      <retval type="string" />
+    </parameters>
+  </function>
+  <function name="GetWindowsDirectory" visibility="private">
+    <parameters>
+      <retval type="string" />
+    </parameters>
+  </function>
+  <procedure name="SetStringsDelimitedTextWithSpace" visibility="private">
+    <parameters>
+      <parameter name="AStrings" type="TStrings" />
+      <parameter name="AQuoteChar" type="Char" />
+      <parameter name="ADelimiter" type="Char" />
+      <parameter name="Value" type="string" paramflags="const" />
+    </parameters>
+  </procedure>
+  <function name="PascalString" visibility="private">
+    <parameters>
+      <parameter name="S" type="string" paramflags="const" />
+      <retval type="string" />
+    </parameters>
+  </function>
+  <function name="GetKbdLayout" visibility="private">
+    <parameters>
+      <retval type="ShortString" />
+    </parameters>
+  </function>
+  <procedure name="SetKbdLayout" visibility="private">
+    <parameters>
+      <parameter name="AKbdLayoutName" type="string" />
+    </parameters>
+  </procedure>
+</namespace>
